@@ -8,6 +8,7 @@ namespace Tasks
 {
     class CircularPrime
     {
+        private const int LIMIT = 1000000;
         public CircularPrime()
         {
             Console.WriteLine("Circular Prime");
@@ -26,7 +27,7 @@ namespace Tasks
             Console.WriteLine("----\nОбчислення...\n");
 
             // Перебір наших основних чисел
-            for(count = 2; count <= 1000000;)
+            for(count = 2; count <= LIMIT;)
             {
                 // Перевірка числа, на що він може ділитись націло
                 for(y = 2; y < i; y++)
