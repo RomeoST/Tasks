@@ -1,9 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+
+/*
+    Знаю, можно было сделать через массивы =) Но захотелось через листы 
+*/
 
 namespace Tasks
 {
@@ -19,22 +23,20 @@ namespace Tasks
             FileManager.OpenFile();
             if (FileManager.list == null || FileManager.list.Count == 0)
                 return;
-            int sum = 0;
-            int num = 0;
-            string result = "";
-            foreach(var item in FileManager.list)
-            {
-                if (item.listNum != null)
-                {
-                    num = item.listNum.Count > 1 ? item.listNum[item.listNum.Count - 2]
-                                                     : item.listNum.Count > 0
-                                                     ? item.listNum.Last()
-                                                     : 0;
-                    sum += num;
-                    result += string.Format(" + {0}", num);
-                }
-            }
-            Console.WriteLine(string.Format("{0} = {1}", result.Remove(0, 3), sum));
+            // Начинаем с предпоследнего
+            int sum = FindMax(FileManager.list.Count - 2);
+            
+            Console.WriteLine("Result : "+sum);
+        }
+
+        public int FindMax(int count)
+        {
+            for (int i = 0; i < FileManager.list[count].listNum.Count;i++)
+                FileManager.list[count].listNum[i] += Math.Max(FileManager.list[count + 1].listNum[i], FileManager.list[count + 1].listNum[i + 1]);
+            if (FileManager.list[count].listNum.Count == 1)
+                return FileManager.list[count].listNum[0];
+            else
+                return FindMax(count - 1);
         }
     }
 }
